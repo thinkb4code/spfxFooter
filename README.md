@@ -1,6 +1,9 @@
-## footer
+## Footer
 
-This is where you include your WebPart documentation.
+Bootstrap SPFx project for creating footer with images. 
+
+## Output
+![Footer UI](https://raw.githubusercontent.com/thinkb4code/spfxFooter/master/screenshots/render.PNG)
 
 ### Building the code
 
@@ -8,19 +11,9 @@ This is where you include your WebPart documentation.
 git clone the repo
 npm i
 npm i -g gulp
-gulp
+gulp trust-dev-cert
+gulp serve
 ```
 
-This package produces the following:
-
-* lib/* - intermediate-stage commonjs build artifacts
-* dist/* - the bundled script, along with other resources
-* deploy/* - all resources which should be uploaded to a CDN.
-
-### Build options
-
-gulp clean - TODO
-gulp test - TODO
-gulp serve - TODO
-gulp bundle - TODO
-gulp package-solution - TODO
+In order to run this solution on your SharePoint online tenant while development, update the `config/serve.json` file. 
+Change the URL from `https://contoso.sharepoint.com/sites/mySite/SitePages/myPage.aspx` to something like `https://<tenant_name>.sharepoint.com/sites/mySite/SitePages/myPage.aspx`.
