@@ -1,13 +1,16 @@
 import { override } from '@microsoft/decorators';
 import { Log } from '@microsoft/sp-core-library';
 import {
-  BaseApplicationCustomizer
+	BaseApplicationCustomizer, PlaceholderContent, PlaceholderName
 } from '@microsoft/sp-application-base';
 import { Dialog } from '@microsoft/sp-dialog';
 
 import * as strings from 'FooterApplicationCustomizerStrings';
 
 const LOG_SOURCE: string = 'FooterApplicationCustomizer';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import Footer from './Footer';
 
 /**
  * If your command set uses the ClientSideComponentProperties JSON input,
@@ -15,25 +18,32 @@ const LOG_SOURCE: string = 'FooterApplicationCustomizer';
  * You can define an interface to describe it.
  */
 export interface IFooterApplicationCustomizerProperties {
-  // This is an example; replace with your own property
-  testMessage: string;
+	// This is an example; replace with your own property
+	testMessage: string;
 }
 
 /** A Custom Action which can be run during execution of a Client Side Application */
-export default class FooterApplicationCustomizer
-  extends BaseApplicationCustomizer<IFooterApplicationCustomizerProperties> {
+export default class FooterApplicationCustomizer extends BaseApplicationCustomizer<IFooterApplicationCustomizerProperties> {
+	private footer: PlaceholderContent | undefined;
+	
+	@override
+	public onInit(): Promise<void> {
+		this.context.placeholderProvider.changedEvent.add(this, this.renderFooter);
+		return Promise.resolve();
+	}
 
-  @override
-  public onInit(): Promise<void> {
-    Log.info(LOG_SOURCE, `Initialized ${strings.Title}`);
+	private renderFooter(): void {
+		if(!this.footer){
+			this.footer = this.context.placeholderProvider.tryCreateContent(PlaceholderName.Bottom, {onDispose: this.dispose});
 
-    let message: string = this.properties.testMessage;
-    if (!message) {
-      message = '(No properties were provided.)';
-    }
+			if(!this.footer){
+				// Log error here.
+			}
 
-    Dialog.alert(`Hello from ${strings.Title}:\n\n${message}`);
-
-    return Promise.resolve();
-  }
+			if(this.footer.domElement){
+				const footerUI = React.createElement(Footer, {});
+				ReactDOM.render(footerUI, this.footer.domElement);
+			}
+		}
+	}
 }

@@ -1,0 +1,16 @@
+.footer {
+    width: 100%;
+    height: 40px;
+    background-color: blue;
+    text-align: right;
+
+    a {
+        padding: 10px;
+        display: inline-block;
+
+        img {
+            width: auto;
+            height: 24px;
+        }
+    }
+}
