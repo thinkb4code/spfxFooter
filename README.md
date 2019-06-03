@@ -1,3 +1,6 @@
+## Solution
+This solution was create to address StackExchange problem listed at https://sharepoint.stackexchange.com/questions/264104/how-to-add-an-instagram-facebook-and-twitter-logos-in-sharepoint-modern-communi
+
 ## Footer
 
 Bootstrap SPFx project for creating footer with images. 
